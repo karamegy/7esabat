@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPSER Dashboard - نظام إدارة المبيعات والطلبات</title>
+    <!-- خط القاهرة الداعم للغة العربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- مكتبة Chart.js للرسوم البيانية -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ربط ملف الـ CSS الخارجي -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+        
+        <!-- التبويب الأول: الملخص التنفيذي / القائمة -->
+        <div id="tab-dashboard" class="tab-content active-tab">
+            <!-- الشريط العلوي -->
+            <div class="top-header">
+                <div class="client-box" id="clientName">اسم شركة العميل</div>
+                <div class="user-box" id="userName">اسم المستخدم</div>
+            </div>
+
+            <!-- شريط الفلاتر -->
+            <div class="filter-bar">
+                <div class="filter-item">
+                    <i class="fa-regular fa-calendar"></i>
+                    <input type="text" value="2026-10-01 - 2026-10-31" style="width: 170px;">
+                </div>
+                <div class="filter-item">
+                    <select id="branchSelect">
+                        <option>كل الفرع</option>
+                        <option>فرع الرياض</option>
+                        <option>فرع جدة</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <select>
+                        <option>تجميع بـ ثانويه</option>
+                        <option>تجميع بـ يومية</option>
+                    </select>
+                </div>
+                <button class="export-btn"><i class="fa-solid fa-cloud-arrow-down"></i> تصدير</button>
+            </div>
+
+            <!-- شريط المؤشرات الرقمية KPI -->
+            <div class="kpi-container" id="kpiBar">
+                <div class="kpi-card">
+                    <div class="kpi-value">12,570,489</div>
+                    <div class="kpi-label">Gross Revenue</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">69,118.59</div>
+                    <div class="kpi-label">Disc. Amt</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">12,510,321.40</div>
+                    <div class="kpi-label">Menu Revenue</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">202,045</div>
+                    <div class="kpi-label">Total Qty</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">158,079</div>
+                    <div class="kpi-label">M Orders</div>
+                </div>
+            </div>
+
+            <!-- شبكة الرسوم والجدول -->
+            <div class="dashboard-grid">
+                <!-- العمود الأيسر: الرسوم البيانية -->
+                <div>
+                    <!-- الرسم البياني الأول -->
+                    <div class="card">
+                        <div class="card-header">T. Sales by Payment</div>
+                        <div class="card-body" style="height: 220px;">
+                            <canvas id="paymentSalesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- الرسوم السفلية -->
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
+                        <div class="card">
+                            <div class="card-header">Peak Sales Hours</div>
+                            <div class="card-body" style="height: 160px;">
+                                <canvas id="peakHoursChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Top 2 Hours</div>
+                            <div class="card-body" style="height: 160px;">
+                                <canvas id="topHoursChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمود الأيمن: جدول المنتجات -->
+                <div>
+                    <div class="card">
+                        <div class="card-header">Product Name & Sales</div>
+                        <div class="card-body" style="padding: 5px;">
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Total Qty</th>
+                                        <th>Gross Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productTableBody">
+                                    <!-- يتم تعبئتها ديناميكياً عبر JavaScript -->
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-footer">
+                                        <td>Total</td>
+                                        <td>197,142</td>
+                                        <td>12,125,422</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- التبويب الثاني: قسم الطلبات (الرسم البياني الثاني) -->
+        <div id="tab-orders" class="tab-content">
+            <div class="top-header">
+                <div class="client-box">اسم شركة العميل</div>
+                <div class="user-box">اسم المستخدم</div>
+            </div>
+            <div class="kpi-container">
+                <div class="kpi-card"><div class="kpi-value">13,020,391</div><div class="kpi-label">T. SALES</div></div>
+                <div class="kpi-card"><div class="kpi-value">49,774</div><div class="kpi-label">Order</div></div>
+                <div class="kpi-card"><div class="kpi-value">119.35</div><div class="kpi-label">AVG Sales</div></div>
+                <div class="kpi-card"><div class="kpi-value">10,300</div><div class="kpi-label">AVO</div></div>
+                <div class="kpi-card"><div class="kpi-value">1,005,645</div><div class="kpi-label">Dynamic Average Sales</div></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="card">
+                    <div class="card-header">Monthly Orders (Line)</div>
+                    <div class="card-body" style="height: 250px;"><canvas id="monthlyLineChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Monthly Orders (Bar)</div>
+                    <div class="card-body" style="height: 250px;"><canvas id="monthlyBarChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- التبويب الثالث: التطبيقات والكاميرا (يطابق الصورة الثانية) -->
+        <div id="tab-camera" class="tab-content" style="height: 100%;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <div class="client-box" style="background:#1e6091; color:white;">اسم البراند</div>
+                <div class="client-box" style="background:#1e6091; color:white;">اسم شركة العميل</div>
+            </div>
+            <div class="client-box" style="background:#1e6091; color:white; text-align:center; margin-bottom: 20px; font-size:18px;">اسم الفرع</div>
+            
+            <div class="camera-view-container" style="display: flex;">
+                <i class="fa-solid fa-video camera-icon-large"></i>
+                <button class="action-button" onclick="alert('جارٍ تفعيل الكاميرا لالتقاط الصورة...')">انقر للتصوير</button>
+                <button class="action-button" onclick="prompt('أدخل آخر 4 أرقام:')">آخر 4 ارقام</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- القائمة الجانبية (Sidebar) مطابقة للصور -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-logo">
+                <div class="logo-title">OPSER</div>
+                <div class="logo-subtitle">نظام الإدارة الشامل</div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الملخص التنفيذي <i class="fa-solid fa-chart-pie"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">التقارير <i class="fa-solid fa-file-lines"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-camera', this)">الفروع <i class="fa-solid fa-code-branch"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-orders', this)">الطلبات <i class="fa-solid fa-cart-shopping"></i></li>
+                <li class="nav-item active" onclick="switchTab('tab-dashboard', this)">القائمة <i class="fa-solid fa-bars"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-camera', this)">التطبيقات (كيتا، جاهز...) <i class="fa-solid fa-mobile-screen"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الكاش انفو <i class="fa-solid fa-wallet"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">التعويضات <i class="fa-solid fa-rotate-left"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">مطابقة المبيعات <i class="fa-solid fa-scale-balanced"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الأهداف و الخطة التسويقية <i class="fa-solid fa-bullseye"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الاستشارات <i class="fa-solid fa-comments"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">تواصل معنا <i class="fa-solid fa-headset"></i></li>
+            </ul>
+        </div>
+        <div style="padding: 10px;">
+            <button class="nav-item logout-btn" style="width: 100%; justify-content: center; margin: 0;" onclick="alert('تم تسجيل الخروج بنجاح')">
+                تسجيل الخروج <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<!-- ربط ملف الجافاسكريبت الخارجي -->
+<script src="app.js"></script>
+</body>
+</html>
