@@ -1,3 +1,13 @@
+// دالة فتح وإغلاق القائمة الجانبية المنسدلة
+function toggleSidebar() {
+    const sidebar = document.getElementById('appSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar && overlay) {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('open');
+    }
+}
+
 // تفعيل التبديل بين الشاشات
 function switchTab(tabId, element) {
     document.querySelectorAll('.tab-content').forEach(tab => {
