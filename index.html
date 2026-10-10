@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OPSER Dashboard - نظام إدارة المبيعات والطلبات</title>
     <!-- خط القاهرة الداعم للغة العربية -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -57,7 +57,7 @@
         <div id="tab-dashboard" class="tab-content active-tab">
             <!-- الشريط العلوي -->
             <div class="top-header">
-                <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
                     <button class="menu-toggle-btn" onclick="toggleSidebar()">
                         <i class="fa-solid fa-bars"></i>
                     </button>
@@ -70,7 +70,7 @@
             <div class="filter-bar">
                 <div class="filter-item">
                     <i class="fa-regular fa-calendar"></i>
-                    <input type="text" value="2026-10-01 - 2026-10-31" style="width: 170px;">
+                    <input type="text" value="2026-10-01 - 2026-10-31">
                 </div>
                 <div class="filter-item">
                     <select id="branchSelect">
@@ -124,7 +124,7 @@
                     </div>
 
                     <!-- الرسوم السفلية -->
-                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
+                    <div class="sub-charts-grid">
                         <div class="card">
                             <div class="card-header">Peak Sales Hours</div>
                             <div class="card-body" style="height: 160px;">
@@ -144,7 +144,7 @@
                 <div>
                     <div class="card">
                         <div class="card-header">Product Name & Sales</div>
-                        <div class="card-body" style="padding: 5px;">
+                        <div class="card-body" style="padding: 5px; overflow-x: auto;">
                             <table class="product-table">
                                 <thead>
                                     <tr>
@@ -173,7 +173,7 @@
         <!-- التبويب الثاني: قسم الطلبات -->
         <div id="tab-orders" class="tab-content">
             <div class="top-header">
-                <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
                     <button class="menu-toggle-btn" onclick="toggleSidebar()">
                         <i class="fa-solid fa-bars"></i>
                     </button>
@@ -188,7 +188,7 @@
                 <div class="kpi-card"><div class="kpi-value">10,300</div><div class="kpi-label">AVO</div></div>
                 <div class="kpi-card"><div class="kpi-value">1,005,645</div><div class="kpi-label">Dynamic Average Sales</div></div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="sub-charts-grid" style="grid-template-columns: 1fr 1fr;">
                 <div class="card">
                     <div class="card-header">Monthly Orders (Line)</div>
                     <div class="card-body" style="height: 250px;"><canvas id="monthlyLineChart"></canvas></div>
@@ -203,7 +203,7 @@
         <!-- التبويب الثالث: التطبيقات والكاميرا -->
         <div id="tab-camera" class="tab-content" style="height: 100%;">
             <div class="top-header" style="margin-bottom: 15px;">
-                <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
                     <button class="menu-toggle-btn" onclick="toggleSidebar()">
                         <i class="fa-solid fa-bars"></i>
                     </button>
