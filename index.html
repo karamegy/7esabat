@@ -15,8 +15,41 @@
 </head>
 <body>
 
+<!-- طبقة التعتيم الخلفية عند فتح القائمة -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
 <div class="app-container">
     
+    <!-- القائمة الجانبية (Sidebar) المنسدلة -->
+    <div class="sidebar" id="appSidebar">
+        <div>
+            <div class="sidebar-logo">
+                <div class="logo-title">OPSER</div>
+                <div class="logo-subtitle">نظام الإدارة الشامل</div>
+                <button class="close-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">الملخص التنفيذي <i class="fa-solid fa-chart-pie"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">التقارير <i class="fa-solid fa-file-lines"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-camera', this); toggleSidebar();">الفروع <i class="fa-solid fa-code-branch"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-orders', this); toggleSidebar();">الطلبات <i class="fa-solid fa-cart-shopping"></i></li>
+                <li class="nav-item active" onclick="switchTab('tab-dashboard', this); toggleSidebar();">القائمة <i class="fa-solid fa-bars"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-camera', this); toggleSidebar();">التطبيقات (كيتا، جاهز...) <i class="fa-solid fa-mobile-screen"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">الكاش انفو <i class="fa-solid fa-wallet"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">التعويضات <i class="fa-solid fa-rotate-left"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">مطابقة المبيعات <i class="fa-solid fa-scale-balanced"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">الأهداف و الخطة التسويقية <i class="fa-solid fa-bullseye"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">الاستشارات <i class="fa-solid fa-comments"></i></li>
+                <li class="nav-item" onclick="switchTab('tab-dashboard', this); toggleSidebar();">تواصل معنا <i class="fa-solid fa-headset"></i></li>
+            </ul>
+        </div>
+        <div style="padding: 10px;">
+            <button class="nav-item logout-btn" style="width: 100%; justify-content: center; margin: 0;" onclick="alert('تم تسجيل الخروج بنجاح')">
+                تسجيل الخروج <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- المحتوى الرئيسي -->
     <div class="main-content">
         
@@ -24,7 +57,12 @@
         <div id="tab-dashboard" class="tab-content active-tab">
             <!-- الشريط العلوي -->
             <div class="top-header">
-                <div class="client-box" id="clientName">اسم شركة العميل</div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <button class="menu-toggle-btn" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="client-box" id="clientName">اسم شركة العميل</div>
+                </div>
                 <div class="user-box" id="userName">اسم المستخدم</div>
             </div>
 
@@ -76,7 +114,6 @@
 
             <!-- شبكة الرسوم والجدول -->
             <div class="dashboard-grid">
-                <!-- العمود الأيسر: الرسوم البيانية -->
                 <div>
                     <!-- الرسم البياني الأول -->
                     <div class="card">
@@ -103,7 +140,7 @@
                     </div>
                 </div>
 
-                <!-- العمود الأيمن: جدول المنتجات -->
+                <!-- جدول المنتجات -->
                 <div>
                     <div class="card">
                         <div class="card-header">Product Name & Sales</div>
@@ -133,10 +170,15 @@
             </div>
         </div>
 
-        <!-- التبويب الثاني: قسم الطلبات (الرسم البياني الثاني) -->
+        <!-- التبويب الثاني: قسم الطلبات -->
         <div id="tab-orders" class="tab-content">
             <div class="top-header">
-                <div class="client-box">اسم شركة العميل</div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <button class="menu-toggle-btn" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="client-box">اسم شركة العميل</div>
+                </div>
                 <div class="user-box">اسم المستخدم</div>
             </div>
             <div class="kpi-container">
@@ -158,10 +200,15 @@
             </div>
         </div>
 
-        <!-- التبويب الثالث: التطبيقات والكاميرا (يطابق الصورة الثانية) -->
+        <!-- التبويب الثالث: التطبيقات والكاميرا -->
         <div id="tab-camera" class="tab-content" style="height: 100%;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                <div class="client-box" style="background:#1e6091; color:white;">اسم البراند</div>
+            <div class="top-header" style="margin-bottom: 15px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <button class="menu-toggle-btn" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="client-box" style="background:#1e6091; color:white;">اسم البراند</div>
+                </div>
                 <div class="client-box" style="background:#1e6091; color:white;">اسم شركة العميل</div>
             </div>
             <div class="client-box" style="background:#1e6091; color:white; text-align:center; margin-bottom: 20px; font-size:18px;">اسم الفرع</div>
@@ -173,35 +220,6 @@
             </div>
         </div>
 
-    </div>
-
-    <!-- القائمة الجانبية (Sidebar) مطابقة للصور -->
-    <div class="sidebar">
-        <div>
-            <div class="sidebar-logo">
-                <div class="logo-title">OPSER</div>
-                <div class="logo-subtitle">نظام الإدارة الشامل</div>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الملخص التنفيذي <i class="fa-solid fa-chart-pie"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">التقارير <i class="fa-solid fa-file-lines"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-camera', this)">الفروع <i class="fa-solid fa-code-branch"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-orders', this)">الطلبات <i class="fa-solid fa-cart-shopping"></i></li>
-                <li class="nav-item active" onclick="switchTab('tab-dashboard', this)">القائمة <i class="fa-solid fa-bars"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-camera', this)">التطبيقات (كيتا، جاهز...) <i class="fa-solid fa-mobile-screen"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الكاش انفو <i class="fa-solid fa-wallet"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">التعويضات <i class="fa-solid fa-rotate-left"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">مطابقة المبيعات <i class="fa-solid fa-scale-balanced"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الأهداف و الخطة التسويقية <i class="fa-solid fa-bullseye"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">الاستشارات <i class="fa-solid fa-comments"></i></li>
-                <li class="nav-item" onclick="switchTab('tab-dashboard', this)">تواصل معنا <i class="fa-solid fa-headset"></i></li>
-            </ul>
-        </div>
-        <div style="padding: 10px;">
-            <button class="nav-item logout-btn" style="width: 100%; justify-content: center; margin: 0;" onclick="alert('تم تسجيل الخروج بنجاح')">
-                تسجيل الخروج <i class="fa-solid fa-right-from-bracket"></i>
-            </button>
-        </div>
     </div>
 
 </div>
